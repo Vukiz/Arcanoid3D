@@ -14,11 +14,13 @@ public class PlatformController : MonoBehaviour
 
   void Start()
   {
-    leftBorderX = GameObject.Find("LeftBorder").transform.position.x;
+    GameObject leftBorder = GameObject.Find("LeftBorder");
+    float borderSize = leftBorder.GetComponent<MeshRenderer>().bounds.size.x;
+    leftBorderX = leftBorder.transform.position.x;
     rightBorderX = GameObject.Find("RightBorder").transform.position.x;
     float platformXSize = GetComponent<MeshRenderer>().bounds.size.x;
-    leftBorderX += platformXSize / 2;
-    rightBorderX -= platformXSize / 2;
+    leftBorderX += (platformXSize / 2 + borderSize / 2);
+    rightBorderX -= (platformXSize / 2 + borderSize / 2);
   }
   void OnMouseDown()
   {
