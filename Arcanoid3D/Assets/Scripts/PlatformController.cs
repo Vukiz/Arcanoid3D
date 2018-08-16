@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
@@ -24,6 +21,7 @@ public class PlatformController : MonoBehaviour
     leftBorderX += (platformXSize / 2 + borderSize / 2);
     rightBorderX -= (platformXSize / 2 + borderSize / 2);
   }
+
   void OnMouseDown()
   {
     gameIsActive = true;
@@ -36,7 +34,6 @@ public class PlatformController : MonoBehaviour
     transform.position = initialPosition;
   }
 
-
   void Update()
   {
     if (!gameIsActive)
@@ -46,7 +43,7 @@ public class PlatformController : MonoBehaviour
 
     Vector3 curPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
     transform.position = new Vector3(Mathf.Clamp(transform.position.x + curPosition.x - lastMousePosition.x, leftBorderX, rightBorderX),
-        transform.position.y, 0f);
+      transform.position.y, 0f);
     lastMousePosition = curPosition;
   }
 }
