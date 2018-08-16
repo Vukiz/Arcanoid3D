@@ -46,9 +46,9 @@ public class PlatformController : MonoBehaviour
 
   private void MovePlatformWithMouse()
   {
-    Vector3 curPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-    transform.position = new Vector3(Mathf.Clamp(transform.position.x + curPosition.x - lastMousePosition.x, leftBorderX, rightBorderX),
-      transform.position.y, 0f);
+    Vector3 curPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -Camera.main.transform.position.z));
+    float positionDelta = curPosition.x - lastMousePosition.x;
+    transform.position = new Vector3(Mathf.Clamp(transform.position.x + positionDelta, leftBorderX, rightBorderX), transform.position.y, 0f);
     lastMousePosition = curPosition;
   }
 }

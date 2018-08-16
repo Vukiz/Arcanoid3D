@@ -5,12 +5,12 @@ public class BorderLightUp : MonoBehaviour
 {
   private Renderer borderRenderer;
 
-	void Start ()
-	{
-	  borderRenderer = GetComponent<Renderer>();
-	}
-	
-  void OnCollisionEnter(Collision col)
+  private void Start()
+  {
+    borderRenderer = GetComponent<Renderer>();
+  }
+
+  private void OnCollisionEnter(Collision col)
   {
     StartCoroutine(FadeColor(Color.red, Color.white));
   }

@@ -10,7 +10,7 @@ public class BallController : MonoBehaviour
 
   public float SpeedOnHitMultiplier = 1.1f;
 
-  public float PlatformRotationChange = 30f;
+  public float PlatformDirectionAngleChange = 30f;
 
   public float BallSpeedLimit = 20f;
 
@@ -55,7 +55,7 @@ public class BallController : MonoBehaviour
     if (col.gameObject.name.Equals("Platform", StringComparison.InvariantCultureIgnoreCase))
     {
       TrySpeedUpBall(col);
-      RotateByBallPosition(col);
+      ChangeReboundAngle(col);
     }
   }
 
@@ -68,12 +68,12 @@ public class BallController : MonoBehaviour
     }
   }
 
-  private void RotateByBallPosition(Collision col)
+  private void ChangeReboundAngle(Collision col)
   {
     float platformHalfSize = col.gameObject.GetComponent<MeshRenderer>().bounds.size.x / 2;
     ContactPoint contactPoint = col.contacts[0];
     float distanceFromCenter = contactPoint.point.x - col.gameObject.transform.position.x; //negative to the left; positive to the right;
     float normalizedDistance = distanceFromCenter / platformHalfSize;
-    rb.velocity = Quaternion.Euler(0, 0, PlatformRotationChange * normalizedDistance) * rb.velocity;
+    rb.velocity = Quaternion.Euler(0, 0, PlatformDirectionAngleChange * normalizedDistance) * rb.velocity;
   }
 }
