@@ -54,17 +54,26 @@ public class BallController : MonoBehaviour
   {
     if (col.gameObject.name.Equals("Platform", StringComparison.InvariantCultureIgnoreCase))
     {
-      if (transform.position.y >= col.transform.position.y && rb.velocity.magnitude < BallSpeedLimit) //increase ball speed
-      {
-        rb.velocity *= SpeedOnHitMultiplier;
-        RotationSpeed *= SpeedOnHitMultiplier;
-      }
-
-      float platformHalfSize = col.gameObject.GetComponent<MeshRenderer>().bounds.size.x / 2;
-      ContactPoint contactPoint = col.contacts[0];
-      float distanceFromCenter = contactPoint.point.x - col.gameObject.transform.position.x; //negative to the left; positive to the right;
-      float normalizedDistance = distanceFromCenter / platformHalfSize;
-      rb.velocity = Quaternion.Euler(0, 0, PlatformRotationChange * normalizedDistance) * rb.velocity;
+      TrySpeedUpBall(col);
+      RotateByBallPosition(col);
     }
+  }
+
+  private void TrySpeedUpBall(Collision col)
+  {
+    if (transform.position.y >= col.transform.position.y && rb.velocity.magnitude < BallSpeedLimit) //increase ball speed
+    {
+      rb.velocity *= SpeedOnHitMultiplier;
+      RotationSpeed *= SpeedOnHitMultiplier;
+    }
+  }
+
+  private void RotateByBallPosition(Collision col)
+  {
+    float platformHalfSize = col.gameObject.GetComponent<MeshRenderer>().bounds.size.x / 2;
+    ContactPoint contactPoint = col.contacts[0];
+    float distanceFromCenter = contactPoint.point.x - col.gameObject.transform.position.x; //negative to the left; positive to the right;
+    float normalizedDistance = distanceFromCenter / platformHalfSize;
+    rb.velocity = Quaternion.Euler(0, 0, PlatformRotationChange * normalizedDistance) * rb.velocity;
   }
 }
