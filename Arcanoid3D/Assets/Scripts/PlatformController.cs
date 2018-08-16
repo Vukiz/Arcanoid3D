@@ -11,9 +11,11 @@ public class PlatformController : MonoBehaviour
   private bool gameIsActive;
   private float leftBorderX;
   private float rightBorderX;
+  private Vector3 initialPosition;
 
   void Start()
   {
+    initialPosition = transform.position;
     GameObject leftBorder = GameObject.Find("LeftBorder");
     float borderSize = leftBorder.GetComponent<MeshRenderer>().bounds.size.x;
     leftBorderX = leftBorder.transform.position.x;
@@ -31,6 +33,7 @@ public class PlatformController : MonoBehaviour
   void OnMouseUp()
   {
     gameIsActive = false;
+    transform.position = initialPosition;
   }
 
 
